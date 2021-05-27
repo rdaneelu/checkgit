@@ -19,4 +19,4 @@ pwd >> $HOME/.config/.checkgit
 </pre>
 3. Do step 2 for all your git repositories in your machine
 4. Execute checkgit.sh
-5. Choose to ignore or not untracked files
+5. Choose to ignore or include untracked files
