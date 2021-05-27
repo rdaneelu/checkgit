@@ -1,6 +1,5 @@
 #!/bin/bash
 
-repos_names=()
 fp=()
 file_checkgit="$HOME/.config/.checkgit" # Change the path to your file here if you like it elsewhere
 mode=0
@@ -22,10 +21,11 @@ fi
 # TEST if checkgit or .gitconfig or .config/git/config exist
 # Also saves either path for repos or its alias, and saves the name of the repo
 # fp = full path to repo
-# repos = aliases to repos
 if [ -f $file_checkgit ]; then
+    # Read all directories
     fp=( $(cat $file_checkgit | sed 's/\/$//') )
-    repos_names=( $(cat $file_checkgit | sed 's/\/$//' | rev | cut -d '/' -f 1 | rev ) )
+    # Remove duplicates
+    read -a fp <<< `printf "%s\n" "${fp[@]}" | sort -u | sed -z 's/\n/ /g'`
     mode=1
 else
     echo no config file for git found! Quitting...
@@ -41,7 +41,7 @@ if [ $mode -eq 1 ]; then
         git --git-dir=${fp[$i]}/.git --work-tree=${fp[$i]} fetch --all -q
         [ $? -ne 0 ] && exit 1
 
-        msj="${msj}${repos_names[$i]}: "
+        msj="${msj}"`dirname "${fp[$i]}/.git"`": "
         if [[ $(git --git-dir=${fp[$i]}/.git --work-tree=${fp[$i]} rev-parse HEAD) != $(git --git-dir=${fp[$i]}/.git --work-tree=${fp[$i]} rev-parse @{u}) ]];then
             if git --git-dir=${fp[$i]}/.git --work-tree=${fp[$i]} log --pretty=oneline | awk '{print $1}' | grep -Fq $(git --git-dir=${fp[$i]}/.git --work-tree=${fp[$i]} rev-parse @{u});then
                 msj="${msj}${red}Upstream Behind Local${nc}"
