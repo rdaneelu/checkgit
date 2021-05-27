@@ -3,9 +3,9 @@
 <pre>
 REPOSITORIES:
 repo1: ALL OK (Means upstream if exist is syncronised with local and no local changes from last commit)
-repo2: Upstream Ahead local
-repo3: Upstream Behind local
-repo4: Local changes
+repo2: Upstream Ahead local (Upstream is ahead 1 or several commits from local, no local changes since last local commit)
+repo3: Upstream Behind local (Upstream is behind 1 or several commits from local, no local changes since last local commit)
+repo4: Local changes (Upstream is syncronised, local changes from last commit)
 repo5: Upstream {Ahead/Behind} local, Local changes
 </pre>
 
@@ -19,3 +19,4 @@ pwd >> $HOME/.config/.checkgit
 </pre>
 3. Do step 2 for all your git repositories in your machine
 4. Execute checkgit.sh
+5. Choose to ignore or not untracked files
