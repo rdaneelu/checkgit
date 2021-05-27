@@ -41,7 +41,7 @@ if [ $mode -eq 1 ]; then
         git --git-dir=${fp[$i]}/.git --work-tree=${fp[$i]} fetch --all -q
         [ $? -ne 0 ] && exit 1
 
-        msj="${msj}"`dirname "${fp[$i]}/.git"`": "
+        msj="${msj}"`basename "${fp[$i]}"`": "
         if [[ $(git --git-dir=${fp[$i]}/.git --work-tree=${fp[$i]} rev-parse HEAD) != $(git --git-dir=${fp[$i]}/.git --work-tree=${fp[$i]} rev-parse @{u}) ]];then
             if git --git-dir=${fp[$i]}/.git --work-tree=${fp[$i]} log --pretty=oneline | awk '{print $1}' | grep -Fq $(git --git-dir=${fp[$i]}/.git --work-tree=${fp[$i]} rev-parse @{u});then
                 msj="${msj}${red}Upstream Behind Local${nc}"
