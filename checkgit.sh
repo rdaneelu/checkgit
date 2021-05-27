@@ -41,7 +41,16 @@ if [ $mode -eq 1 ]; then
         git --git-dir=${fp[$i]}/.git --work-tree=${fp[$i]} fetch --all -q
         [ $? -ne 0 ] && exit 1
 
-        msj="${msj}"`basename "${fp[$i]}"`": "
+        if [[ -n `git --git-dir=${fp[$i]}/.git remote` ]]; then
+            fetch_url=`git --git-dir=${fp[$i]}/.git remote show origin -n | grep "Fetch URL" | head -n1`
+            # Strip texts before username and .git postfix on some of the remotes
+            remote=`echo $fetch_url | sed "s/.*github.com\///" | sed "s/\.git//g"`
+            msj="${msj}$remote: "
+        else
+            msj="${msj}"`basename "${fp[$i]}"`": "
+        fi
+
+        
         if [[ $(git --git-dir=${fp[$i]}/.git --work-tree=${fp[$i]} rev-parse HEAD) != $(git --git-dir=${fp[$i]}/.git --work-tree=${fp[$i]} rev-parse @{u}) ]];then
             if git --git-dir=${fp[$i]}/.git --work-tree=${fp[$i]} log --pretty=oneline | awk '{print $1}' | grep -Fq $(git --git-dir=${fp[$i]}/.git --work-tree=${fp[$i]} rev-parse @{u});then
                 msj="${msj}${red}Upstream Behind Local${nc}"
