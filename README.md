@@ -27,5 +27,5 @@ repo5: Upstream {Ahead/Behind} local, Local changes
 
 # Features
 1. Now it tells you if the repository doesn't have an upstream remote configured.
-2. And if a name is given to 2 or more different paths in the config file it gives a number
+2. If a name is given to 2 or more different paths in the config file it gives a number
 at the end of the name in order.
