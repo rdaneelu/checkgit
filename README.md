@@ -14,9 +14,18 @@ repo5: Upstream {Ahead/Behind} local, Local changes
 1. Create a git repo with "git init" ($GIT_DIR must be $WORK_TREE/.git).
 2. Make sure your work-tree path is in a file by default in $HOME/.config/.checkgit
 <pre>
-cd path/to/repo
-pwd >> $HOME/.config/.checkgit
+/home/user/work/project1      ~name_your_repo
+/home/user/github/
 </pre>
-3. Do step 2 for all your git repositories in your machine
-4. Execute checkgit.sh
+3. Execute checkgit.sh
+4. Choose to fetch remote repositories if you didn't recently
 5. Choose to ignore or include untracked files
+
+# Fixed:
+1. Duplicated paths in config file duplicated the output
+2. If no upstream was configured in the repo it always told you Upstream ahead of local
+
+# Features
+1. Now it tells you that no upstream is configured in the repository.
+2. And if a name is given to 2 or more different paths in the config file it gives a number
+at the end of the name in order.
