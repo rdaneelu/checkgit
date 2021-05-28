@@ -26,6 +26,6 @@ repo5: Upstream {Ahead/Behind} local, Local changes
 2. If no upstream was configured in the repo it always told you Upstream ahead of local
 
 # Features
-1. Now it tells you that no upstream is configured in the repository.
+1. Now it tells you if the repository doesn't have an upstream remote configured.
 2. And if a name is given to 2 or more different paths in the config file it gives a number
 at the end of the name in order.
