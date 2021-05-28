@@ -1,4 +1,4 @@
-# Script that list and checks status of all git your different git repositories
+# Script that list and checks status of all your different git repositories
 
 ### How it Works:
 
