@@ -41,8 +41,8 @@ fill_withoutPathDupicates() {
     fi
 }
 rename_nameDuplicates(){
-    local numrepo=2
     for (( i=0; i < ${#repos_names[@]}-1; i++ ));do
+        local numrepo=2
         for (( j=i+1; j < ${#repos_names[@]}; j++ ));do
             if [[ ${repos_names[$i]} == ${repos_names[$j]} ]];then
                 repos_names[$j]="${repos_names[$i]}$numrepo"
