@@ -24,11 +24,11 @@ REPOSITORIES:
 Project0: ALL OK
 Project1: Upstream Ahead Local
 Project2: Upstream Behind Local
-Project3: Local Changes
-Project4: Upstream Ahead Local, Local Changes
-Project5: Upstream Behind Local, Local Changes
+Project3: Local Changes in N files
+Project4: Upstream Ahead Local, Local Changes in N files
+Project5: Upstream Behind Local, Local Changes in N files
 Project6: ALL OK (No upstream detected in repository)
-Project7: Local Changes (No upstream detected in repository)
+Project7: Local Changes in N files (No upstream detected in repository)
 </pre>
 
 # Fixed:

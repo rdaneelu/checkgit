@@ -97,6 +97,8 @@ main(){
     for (( i = 0; i < ${#fp[@]}; i++ )); do
         $yn2 && fetch_gitrepos $i
         msj="${msj}${repos_names[$i]}: "
+        num_changes=$(git --git-dir=${fp[$i]}/.git --work-tree=${fp[$i]} status --porcelain --untracked-files=$yn | wc -l)
+        [ $num_changes -gt 1 ] && s="s" || s=""
         if git --git-dir=${fp[$i]}/.git --work-tree=${fp[$i]} branch -a | grep -Fq "remotes"; then
             if [[ $(git --git-dir=${fp[$i]}/.git --work-tree=${fp[$i]} rev-parse HEAD) != $(git --git-dir=${fp[$i]}/.git --work-tree=${fp[$i]} rev-parse @{u}) ]];then
                 if git --git-dir=${fp[$i]}/.git --work-tree=${fp[$i]} log --pretty=oneline | awk '{print $1}' | grep -Fq $(git --git-dir=${fp[$i]}/.git --work-tree=${fp[$i]} rev-parse @{u});then
@@ -104,21 +106,21 @@ main(){
                 else
                     msj="${msj}${red}Upstream Ahead of Local${nc}"
                 fi
-                if [ $(git --git-dir=${fp[$i]}/.git --work-tree=${fp[$i]} status --porcelain --untracked-files=$yn | wc -l) -ne 0 ];then
-                    msj="${msj}, ${red}Local Changes${nc}"
+                if [ $num_changes -ne 0 ];then
+                    msj="${msj}, ${red}Local Changes in $num_changes file$s${nc}"
                 fi
             else
-                if [ $(git --git-dir=${fp[$i]}/.git --work-tree=${fp[$i]} status --porcelain --untracked-files=$yn | wc -l) -eq 0 ];then
+                if [ $num_changes -eq 0 ];then
                     msj="${msj}${green}ALL OK${nc}"
                 else
-                    msj="${msj}${red}Local Changes${nc}"
+                    msj="${msj}${red}Local Changes in $num_changes file$s${nc}"
                 fi
             fi
         else
-            if [ $(git --git-dir=${fp[$i]}/.git --work-tree=${fp[$i]} status --porcelain --untracked-files=$yn | wc -l) -eq 0 ];then
+            if [ $num_changes -eq 0 ];then
                 msj="${msj}${green}ALL OK${nc} (No upstream repository detected)"
             else
-                msj="${msj}${red}Local Changes${nc} (No upstream repository detected)"
+                msj="${msj}${red}Local Changes in $num_changes file$s${nc} (No upstream repository detected)"
             fi
         fi
         msj="${msj}\n"
