@@ -13,6 +13,10 @@ repo5: Upstream {Ahead/Behind} local, Local changes
 
 1. Create a git repo with "git init" ($GIT_DIR must be $WORK_TREE/.git).
 2. Make sure your work-tree path is in a file by default in $HOME/.config/.checkgit
+3. Execute checkgit.sh
+4. Choose to fetch remote repositories if you didn't recently
+5. Choose to ignore or include untracked files
+
 The file by default is $HOME/.config/.checkgit and should have this 
 <pre>
 /home/user/work/project1      ~name_repo
@@ -20,9 +24,7 @@ The file by default is $HOME/.config/.checkgit and should have this
 /run/media/019E28730912/project2 
 </pre>
 if the line does not provide a name '~name' it defaults to the name of the directory is in.
-3. Execute checkgit.sh
-4. Choose to fetch remote repositories if you didn't recently
-5. Choose to ignore or include untracked files
+
 
 ### All Outputs
 \*\*This script only checks the remote set as upstream to the repository
