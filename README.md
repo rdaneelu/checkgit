@@ -1,13 +1,4 @@
 # Script that list and checks status of all git your different git repositories
-## Example of Output:
-<pre>
-REPOSITORIES:
-repo1: ALL OK (Means upstream if exist is syncronised with local and no local changes from last commit)
-repo2: Upstream Ahead local (Upstream is ahead 1 or several commits from local, no local changes since last local commit)
-repo3: Upstream Behind local (Upstream is behind 1 or several commits from local, no local changes since last local commit)
-repo4: Local changes (Upstream is syncronised, local changes from last commit)
-repo5: Upstream {Ahead/Behind} local, Local changes
-</pre>
 
 ### How it Works:
 
