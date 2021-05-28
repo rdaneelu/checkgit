@@ -2,7 +2,7 @@
 
 ### How it Works:
 
-1. Create a git repo with "git init" ($GIT_DIR must be $WORK_TREE/.git).
+1. Create a git repo with "git init" ($GIT_DIR must be $WORK_TREE/.git) or clone a repo and cd into it.
 2. Make sure your work-tree path is in a file by default in $HOME/.config/.checkgit
 3. Execute checkgit.sh
 4. Choose to fetch remote repositories if you didn't recently
