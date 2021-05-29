@@ -1,16 +1,16 @@
 #!/bin/bash
 
-repos_names=()
-fp=()
+repos_names=() # array for the repositories names only
+fp=() #array for the full path of the directory of the repositories
 config_file=$HOME/.config/.checkgit # Change the path to your file here if you like it elsewhere
-msj=""
-red="\033[0;31m"
-green="\033[0;32m"
-nc="\033[0m"
-config_repeat=0
+msj="" # The whole output is stored here
+red="\033[0;31m" # make the output text red
+green="\033[0;32m" # make the output text green
+nc="\033[0m" # make the output text without color
 
 fill_withoutPathDupicates() {
     if [ -f $config_file ]; then
+        # local variables for onetime use
         local fp_temp=($(cat $config_file | cut -d '~' -f 1 | sed -e 's/\s*//g' | sed 's/\/$//g'))
         local repos_names_temp=($(cat $config_file | cut -d '~' -f 2))
         local num=${#fp_temp}
