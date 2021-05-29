@@ -7,6 +7,7 @@ msj="" # The whole output is stored here
 red="\033[0;31m" # make the output text red
 green="\033[0;32m" # make the output text green
 nc="\033[0m" # make the output text without color
+num_repeated_paths=0
 
 fill_withoutPathDupicates() {
     if [ -f $config_file ]; then
@@ -14,18 +15,19 @@ fill_withoutPathDupicates() {
         local fp_temp=($(cat $config_file | cut -d '~' -f 1 | sed -e 's/\s*//g' | sed 's/\/$//g'))
         local repos_names_temp=($(cat $config_file | cut -d '~' -f 2))
         local num=${#fp_temp}
-        local num_repeat=0
 
         for (( i=0; i < $num-1 ; i++ )); do
             local repeat=false
             for (( j=i+1; j < $num; j++ )); do
+                # with a local variable check if there is a dir path that repeats and gives them a 
+                # empty string
                 if [[ ${fp_temp[$i]} == ${fp_temp[$j]} ]];then
                     [[ ${fp_temp[$i]} == "" ]] && break
                     fp_temp[$j]=""
                     repeat=true
                 fi
             done
-            $repeat && let num++ 
+            $repeat && let num_repeated_paths++
             if [[ "${fp_temp[$i]}" != "" ]];then
                 fp+=(${fp_temp[$i]})
                 if [[ "${repos_names_temp[$i]}" != "${fp_temp[$i]}" ]];then
@@ -36,7 +38,7 @@ fill_withoutPathDupicates() {
             fi
         done
     else
-        echo No config file for git found! Quitting...
+        echo no config file for git found! quitting...
         exit 2
     fi
 }
@@ -70,11 +72,11 @@ prompt_untracked_files(){
 
 prompt_fetch(){
     echo "Fetch upstream repositories?"
-    read -p "(Takes longer, choose n if you very recently fetch it) (Y/n): " yn2
-    if [[ $yn2 == "y" || $yn2 == "Y" || $yn2 == "" ]];then
-        yn2=true
-    elif [[ $yn2 == "n" || $yn2 == "N" ]]; then
+    read -p "(Takes longer, choose n if you very recently fetch it) (y/N): " yn2
+    if [[ $yn2 == "n" || $yn2 == "N" || $yn2 == "" ]];then
         yn2=false
+    elif [[ $yn2 == "y" || $yn2 == "Y" ]]; then
+        yn2=true
     else
         echo "Wrong option!! quitting..."
         exit 1
